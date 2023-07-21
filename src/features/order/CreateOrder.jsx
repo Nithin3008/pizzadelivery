@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Form, redirect, useActionData, useNavigation } from 'react-router-dom';
 import { createOrder } from '../../services/apiRestaurant';
 import { Button } from '../../ui/Button';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import EmptyCart from '../cart/EmptyCart';
 import { clearCart, getCart, getTotalCartPrice } from '../cart/cartSlice';
 import store from '../../store';
@@ -14,7 +14,6 @@ const isValidPhone = (str) =>
 
 function CreateOrder() {
   const navigation = useNavigation();
-  const dispatch = useDispatch();
   const isSubmitting = navigation.state === 'submitting';
   const formErrors = useActionData(); //here we are getting the error data from below function because there two are connected using action property in router
   const [withPriority, setWithPriority] = useState(false);

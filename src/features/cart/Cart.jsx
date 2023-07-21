@@ -4,10 +4,8 @@ import CartItem from './CartItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearCart, getCart } from './cartSlice';
 import EmptyCart from './EmptyCart';
-const fakeCart = [
-  
 
-function Cart() {
+export default function Cart() {
   const cart = useSelector(getCart);
   const userName = useSelector((state) => state.user.userName);
   const dispatch = useDispatch();
@@ -19,12 +17,12 @@ function Cart() {
       {/* Sending Cart items to Cart component to render*/}
       <ul className="mt-3 divide-y divide-stone-200 border-b">
         {cart.map((val) => (
-          <CartItem item={val} key={val.key}></CartItem>
+          <CartItem item={val} key={val.pizzaId}></CartItem>
         ))}
       </ul>
 
       <div className="mt-6 space-x-2">
-      <Button type="primary" to="/order/new">
+        <Button type="primary" to="/order/new">
           Order pizzas
         </Button>
         <Button type="secondary" onClick={() => dispatch(clearCart())}>
@@ -34,5 +32,3 @@ function Cart() {
     </div>
   );
 }
-
-export default Cart;
