@@ -17,15 +17,14 @@ const cartSlice = createSlice({
     },
     increaseQuantity(state, action) {
       const item = state.cart.find((item) => item.pizzaId === action.payload);
-      item.quanity++;
-      item.totalPrice = item.quanity * item.unitPrice;
-      console.log(state.cart);
+      item.quantity++;
+      item.totalPrice = item.quantity * item.unitPrice;
     },
     decreaseQuantity(state, action) {
       const item = state.cart.find((item) => item.pizzaId === action.payload);
-      item.quanity--;
-      item.totalPrice = item.quanity * item.unitPrice;
-      console.log(state.cart);
+      item.quantity--;
+      item.totalPrice = item.quantity * item.unitPrice;
+      if (item.quantity === 0) cartSlice.caseReducers.deleteItem(state, action);
     },
     clearCart(state) {
       state.cart = [];
@@ -42,3 +41,13 @@ export const {
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
+
+//naming convention should start with get
+export const getTotalCartQuantity = (state) =>
+  state.cart.cart.reduce((acc, item) => acc + item.quantity, 0);
+
+export const getTotalCartPrice = (state) =>
+  state.cart.cart.reduce((acc, item) => acc + item.totalPrice, 0);
+export const getCart = (state) => state.cart.cart;
+export const getCurrentQuantityId = (id) => (state) =>
+  state.cart.cart.find((item) => item.pizzaId === id)?.quantity ?? 0;
