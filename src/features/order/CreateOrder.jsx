@@ -89,7 +89,7 @@ function CreateOrder() {
     </div>
   );
 }
-//this fyunction is triggered when we submit the above form and the data was received into this function
+//this function is triggered when we submit the above form and the data was received into this function
 export async function action({ request }) {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
@@ -102,6 +102,7 @@ export async function action({ request }) {
   const errors = {};
   if (!isValidPhone(order.phone))
     errors.phone = 'please give valid phone number';
+  //if errors are there then it will throw
   if (Object.keys(errors).length > 0) return errors;
   //everything clear then it will redirect
   store.dispatch(clearCart());
